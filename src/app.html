@@ -1,0 +1,59 @@
+<template>
+  <require from="./app.css"></require>
+  <div class="ui basic ${app.state.theme} segment" style="height: 100%">
+    <div class="ui equal width left aligned padded grid ${app.state.theme} stackable">
+      <div class="row">
+        <div class="sixteen wide column">
+          <div class="ui ${app.state.theme} grey pointing menu">
+            <a class="${type==='cards' ? 'active' : ''} item" click.trigger="type = 'cards'"><i
+                class="box icon"></i>カード</a>
+            <a class="${type==='list' ? 'active' : ''} item" click.trigger="type = 'list'"><i
+                class="cog icon"></i>一覧</a>
+            <a class="item" click.trigger="toggleInvert()"><i class="exchange alternate icon"></i>theme</a>
+            <div class="item">
+              <div class="ui icon input">
+                <input placeholder="検索" type="text" value.bind="search" id="search">
+                <i class="search link icon"></i>
+              </div>
+            </div>
+            <div class="item" if.bind="type==='list'">
+              <div class="ui toggle ${app.state.theme} checkbox">
+                <input type="checkbox" checked.bind="showKana">
+                <label>かな</label>
+              </div>
+              <div class="ui toggle ${app.state.theme} checkbox">
+                <input type="checkbox" checked.bind="showMeaning">
+                <label>意味</label>
+              </div>
+            </div>
+          </div>
+          <div class="view ui cards" if.bind="type==='cards'">
+            <div class="ui ${app.state.theme} card" repeat.for="card of app.state.data | filterOnProperty:search">
+              <div class="content">
+                <span data-tooltip="${card.kana}" data-position="right center"
+                  class="ui ${card.color} big text">${card.name}</span>
+                <div class="right floated meta" data-tooltip="${card.meaning}" data-position="left center">意味</div>
+              </div>
+            </div>
+          </div>
+          <div class="view" if.bind="type==='list'">
+            <table class="ui striped celled selectable ${app.state.theme} compact table">
+              <thead>
+                <th>言葉</th>
+                <th if.bind="showKana">かな</th>
+                <th if.bind="showMeaning">意味</th>
+              </thead>
+              <tbody>
+                <tr repeat.for="obj of app.state.data | filterOnProperty:search">
+                  <td>${obj.name}</td>
+                  <td if.bind=" showKana">${obj.kana}</td>
+                  <td if.bind="showMeaning">${obj.meaning}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
