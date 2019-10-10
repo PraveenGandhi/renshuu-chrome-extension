@@ -24,6 +24,7 @@ export class AppVM {
   }
 
   private setValue(key: string, value: string) {
+    if(key==='type' && !value) return;
     this.app.state[key] = value;
     localStorage.setItem('renshuu-app-state', JSON.stringify(this.app.state));
   }

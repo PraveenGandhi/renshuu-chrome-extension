@@ -1,6 +1,6 @@
 <template>
   <require from="./app.css"></require>
-  <div class="ui basic ${app.state.theme} segment" style="height: 100%">
+  <div class="ui basic ${app.state.theme} segment">
     <div class="ui equal width left aligned padded grid ${app.state.theme} stackable">
       <div class="row">
         <div class="sixteen wide column">
@@ -8,7 +8,7 @@
             <a class="${type==='cards' ? 'active' : ''} item" click.trigger="type = 'cards'"><i
                 class="box icon"></i>カード</a>
             <a class="${type==='list' ? 'active' : ''} item" click.trigger="type = 'list'"><i
-                class="cog icon"></i>一覧</a>
+                class="list icon"></i>一覧</a>
             <a class="item" click.trigger="toggleInvert()"><i class="exchange alternate icon"></i>theme</a>
             <div class="item">
               <div class="ui icon input">
