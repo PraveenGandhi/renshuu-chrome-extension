@@ -5,7 +5,12 @@
       <a class="${type==='cards' ? 'active' : ''} item" click.trigger="type = 'cards'"><i class="box icon"></i>カード</a>
       <a class="${type==='list' ? 'active' : ''} item" click.trigger="type = 'list'"><i class="list icon"></i>一覧</a>
       <a class="${type==='add' ? 'active' : ''} item" click.trigger="type = 'add'" if.bind="app.state.loggedInUser">
-        <i class="add icon"></i>新規登録</a>
+        <i class="add icon"></i>新規登録
+      </a>
+      <a class="${type==='add' ? 'active' : ''} item" target="_blank" href="http://praveengandhi.github.io/renshuu/"
+        if.bind="!app.state.loggedInUser">
+        <i class="add icon"></i>新規登録
+      </a>
       <a class="item" click.trigger="toggleInvert()"><i class="exchange alternate icon"></i>Theme</a>
       <div class="item">
         <div class="ui icon input">
