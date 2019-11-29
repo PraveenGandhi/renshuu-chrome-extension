@@ -10,7 +10,6 @@ export class App {
   public state = {
     type: 'cards',
     theme: '',
-    primaryColor: 'teal',
     loggedInUser: '',
     data: []
   };
@@ -46,7 +45,7 @@ export class App {
           aurelia.setRoot('app');
       }else{
         this.state.loggedInUser = '';
-        aurelia.setRoot('app');
+        aurelia.setRoot('login');
       }
     });
   }
