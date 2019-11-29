@@ -1,13 +1,15 @@
-import { autoinject, observable } from 'aurelia-framework';
+import { observable, Aurelia } from 'aurelia-framework';
 import { App } from './services/app-service';
 
-@autoinject()
 export class AppVM {
 
   public data = [];
   @observable type = '';
+  public entity: any;
   
-  constructor(private app: App) {
+  static inject = [Aurelia, App];
+
+  constructor(private aurelia: Aurelia, private app: App) {
     this.type = this.app.state.type;
   }
   
@@ -27,6 +29,22 @@ export class AppVM {
     if(key==='type' && !value) return;
     this.app.state[key] = value;
     localStorage.setItem('renshuu-app-state', JSON.stringify(this.app.state));
+  }
+
+  public submit() {
+    this.app.saveWord(this.entity, ()=> {
+      console.log("data has been inserted");
+      console.log(this.entity); 
+      this.app.loadWords(); 
+    });
+  }
+
+  public logout() {
+    this.app.logout().then(() => {
+      this.aurelia.setRoot('login');
+    }).catch((error: any) => {
+      throw new Error(error);
+    });
   }
 }
 export class FilterOnPropertyValueConverter  {

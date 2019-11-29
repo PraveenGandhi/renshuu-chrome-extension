@@ -49,6 +49,11 @@ let run = (production) => {
         main: 'index.cjs.js',
         instructions: '+index.cjs.js'
     });
+    fuse.register('firebase-auth', {
+        homeDir: 'node_modules/firebase/auth/dist',
+        main: 'index.cjs.js',
+        instructions: '+index.cjs.js'
+    });
     fuse.register('firebase-firestore', {
         homeDir: 'node_modules/firebase/database/dist',
         main: 'index.cjs.js',
@@ -59,6 +64,7 @@ let run = (production) => {
         .instructions(`
         + fuse-box-css
         + firebase-app
+        + firebase-auth
         + firebase-firestore
         + fuse-box-aurelia-loader
         + aurelia-bootstrapper
@@ -73,7 +79,7 @@ let run = (production) => {
         + aurelia-templating-router`);
     if (!production) {
         fuse.bundle('app')
-            .watch()//.hmr({reload : true})
+            .watch().hmr({reload : true})
             .instructions(`
             > [main.ts]
             + [**/*.{ts,html,css}]
@@ -87,7 +93,7 @@ let run = (production) => {
             > [main.ts]
             + [**/*.{ts,html,css}]
         `);
-        //fuse.dev();
+        fuse.dev();
     }
     fuse.run();
 };

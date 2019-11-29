@@ -1,0 +1,20 @@
+<template>
+  <style type="text/css">
+    #loginContent {
+      height: 100% !important;
+      -webkit-animation: fadeInRight 0.5s;
+      animation: fadeInRight 0.5s;
+      animation-timing-function: cubic-bezier(.07, .39, .29, .98);
+    }
+  </style>
+  <div class="ui middle aligned center aligned grid animated" class="view" id="loginContent">
+    <div class="column" style="max-width: 400px;">
+      <div class="ui segment">
+        <h1 class="ui ${app.state.primaryColor} header">練習アプリ</h1>
+        <a class="ui massive button ${app.state.primaryColor} fluid" click.delegate="googleLogin()">
+          <i class="google plus icon"></i> グーグルでログイン
+        </a>
+      </div>
+    </div>
+  </div>
+</template>

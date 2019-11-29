@@ -1,15 +1,17 @@
 <template>
   <require from="./app.css"></require>
-  <div class="ui basic ${app.state.theme} segment">
+  <div class="ui basic ${app.state.theme} segment" style="min-height: 700px;">
     <div class="ui equal width left aligned padded grid ${app.state.theme} stackable">
       <div class="row">
         <div class="sixteen wide column">
-          <div class="ui ${app.state.theme} grey pointing menu">
+          <div class="ui fixed top ${app.state.theme} pointing menu">
             <a class="${type==='cards' ? 'active' : ''} item" click.trigger="type = 'cards'"><i
                 class="box icon"></i>カード</a>
             <a class="${type==='list' ? 'active' : ''} item" click.trigger="type = 'list'"><i
                 class="list icon"></i>一覧</a>
-            <a class="item" click.trigger="toggleInvert()"><i class="exchange alternate icon"></i>theme</a>
+            <a class="${type==='add' ? 'active' : ''} item" click.trigger="type = 'add'" if.bind="app.state.loggedInUser">
+              <i class="add icon"></i>新規登録</a>
+            <a class="item" click.trigger="toggleInvert()"><i class="exchange alternate icon"></i>Theme</a>
             <div class="item">
               <div class="ui icon input">
                 <input placeholder="検索" type="text" value.bind="search" id="search">
@@ -26,7 +28,18 @@
                 <label>意味</label>
               </div>
             </div>
+            <div class="right menu" if.bind="app.state.loggedInUser">
+              <div class="ui simple ${app.state.primaryColor} dropdown item">
+                <i class="user ${app.state.primaryColor} icon"></i>${app.state.loggedInUser}! <i
+                  class="dropdown ${app.state.primaryColor} icon"></i>
+                <div class="${app.state.primaryColor} menu">
+                  <a class="item" click.trigger="logout()"><i class="power off icon"></i><span t="app.logout"></span></a>
+                  <!-- <a class="item" route-href="route: settings"><i class="cogs icon"></i><span t="app.settings"></span></a> -->
+                </div>
+              </div>
+            </div>
           </div>
+          <div style="margin-top: 48px;">
           <div class="view ui cards" if.bind="type==='cards'">
             <div class="ui ${app.state.theme} card" repeat.for="card of app.state.data | filterOnProperty:search">
               <div class="content">
@@ -52,6 +65,20 @@
               </tbody>
             </table>
           </div>
+          <div class="view" if.bind="type==='add'">
+            <div class="ui ${app.state.theme} segment">
+              <form class="ui ${app.state.theme} form">
+                <div class="three fields">
+                  <form-control name="name" value.bind="entity.name" label="Name" required="true"></form-control>
+                  <form-control name="meaning" value.bind="entity.meaning" label="Meaning" required="true"></form-control>
+                  <form-control name="kana" value.bind="entity.kana" label="Reading" required="true"></form-control>
+                </div>
+                <button type="button" class="ui submit fluid button green" click.trigger="submit()">
+                  <i class="send icon"></i>Add</button>
+              </form>
+            </div>
+          </div>
+        </div>
         </div>
       </div>
     </div>
