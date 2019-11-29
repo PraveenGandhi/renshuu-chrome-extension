@@ -41,8 +41,10 @@
       <div class="view ui cards" if.bind="type==='cards'">
         <div class="ui ${app.state.theme} card" repeat.for="card of app.state.data | filterOnProperty:search">
           <div class="content">
-            <span data-tooltip="${card.kana}" data-position="right center"
+            <a href="https://jisho.org/search/${card.name}" target="_blank">
+              <span data-tooltip="${card.kana}" data-position="right center"
               class="ui ${card.color} big text">${card.name}</span>
+            </a>
             <div class="right floated meta" data-tooltip="${card.meaning}" data-position="left center">意味</div>
           </div>
         </div>
